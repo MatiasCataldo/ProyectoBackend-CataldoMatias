@@ -1,7 +1,7 @@
 //OBTENER USUARIO POR EMAIL
 async function getUserIdFromEmail(email) {
     try {
-        const response = await fetch(`http://localhost:8080/api/users/email/${encodeURIComponent(email)}`, {
+        const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/users/email/${encodeURIComponent(email)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ async function getUserIdFromEmail(email) {
 //OBTENER ID DEL CARRITO
 async function getCartId(userId, token) {
     try {
-        const response = await fetch(`http://localhost:8080/api/carts/${userId}/cartId`, {
+        const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/carts/${userId}/cartId`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
             
             try {
-                const response = await fetch(`http://localhost:8080/api/carts/${userId}/addItem`, {
+                const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/carts/${userId}/addItem`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             
             try {
-                const response = await fetch(`http://localhost:8080/api/carts/${userId}/deleteItem/${productId}`, {
+                const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/carts/${userId}/deleteItem/${productId}`, {
                     method: 'DELETE',
                 });
                 
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("carrito ID: ", cartId)
     buyButton.addEventListener('click', async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/carts/${userIdString}/${cartId}/purchase`, {
+            const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/carts/${userIdString}/${cartId}/purchase`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
