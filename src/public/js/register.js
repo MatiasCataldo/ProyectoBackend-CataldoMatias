@@ -5,7 +5,7 @@ form.addEventListener('submit', e => {
     const data = new FormData(form);
     const obj = {}
     data.forEach((value, key) => obj[key] = value)
-    fetch('/api/jwt/register', {
+    fetch('https://proyectobackend-cataldomatias-production.up.railway.app/api/jwt/register', {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
