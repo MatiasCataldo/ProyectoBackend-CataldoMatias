@@ -19,6 +19,11 @@ class ViewsController {
         res.render("sucursales");
     }
 
+    // Renderiza la vista de sabores
+    static renderSucursales(req, res) {
+        res.render("Sabores");
+    }
+
     // Renderiza la vista del carrito
     static renderCart(req, res) {
         res.render("cart");
@@ -33,12 +38,22 @@ class ViewsController {
         res.render("updatePassword");
     }
 
+    // Renderiza la vista de presentacion
+    static renderHome2(req, res) {
+        res.render("home2");
+    }
+
     // Renderiza la vista principal (home)
     static renderHome(req, res) {
         res.render("home", {
             products: manejadorProductos.getProducts(),
             user: req.user
         });
+    }
+
+    //Renderiza la vista del pago exitoso
+    static renderRegister(req, res) {
+        res.render("success");
     }
 
     // Renderiza la vista de error

@@ -5,7 +5,7 @@ form.addEventListener('submit', e => {
     const data = new FormData(form);
     const obj = {};
     data.forEach((value, key) => obj[key] = value);
-    fetch('https://proyectobackend-cataldomatias-production.up.railway.app/api/jwt/login', {
+    fetch('http://localhost:8080/api/jwt/login', {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
@@ -25,7 +25,7 @@ form.addEventListener('submit', e => {
             }).showToast();
             result.json()
                 .then(json => {
-                    window.location.replace('/home/user');
+                    window.location.replace('/home/User');
                 });
         } else if (result.status === 401) {
             Toastify({

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {  getUsers, deleteUser, deleteInactiveUsers, getUserById, getUserByEmail, changeUserRole, uploadDocuments } from '../controllers/user.controller.js';
+import {  getUsers, deleteUser, deleteInactiveUsers, getUserById, getUserByEmail, updateUser, uploadDocuments } from '../controllers/user.controller.js';
 import { upload, passportCall, authorization } from "../utils.js"
 
 const router = Router();
@@ -14,7 +14,7 @@ router.get("/:userId", getUserById);
 
 router.get("/email/:email", getUserByEmail);
 
-router.put('/premium/:userId', changeUserRole);
+router.put('/UpDateUser/:userId', updateUser);
 
 router.post("/:uid/documents", upload.fields([{ name: 'documents' }, { name: 'imgProfile' }, { name: 'imgProduct' }]), uploadDocuments);
 

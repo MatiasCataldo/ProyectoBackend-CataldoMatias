@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("email para rest: ", email);
         
         try {
-            const response = await fetch('https://proyectobackend-cataldomatias-production.up.railway.app/api/email/send-email-to-reset', {
+            const response = await fetch('http://localhost:8080/api/email/send-email-to-reset', {
                 method: 'POST',
                 body: JSON.stringify({ email }),
                 headers: {

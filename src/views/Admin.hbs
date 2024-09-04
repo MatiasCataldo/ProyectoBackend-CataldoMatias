@@ -1,78 +1,94 @@
+<header>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <h1 style="padding: 5px;" class="navbar-brand">Bienvenido, {{ user.name }}!</h1>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+        </div>
+        <form id="logoutForm" method="GET">
+            <button style="margin-right: 10px; background-color: darkred; border-color: darkred;" type="submit"
+                class="btn btn-primary">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
+            </button>
+        </form>
+    </nav>
+</header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/home/user">
-            <img src="https://res.cloudinary.com/dbff77zsg/image/upload/w_50,h_55,q_auto/f_auto/logo-removebg-preview_s7i8zr.png"
-                class="logoHeader" alt="logo pagina">
+        <a class="navbar-brand" href="/home/User">
+            <img src="https://res.cloudinary.com/dbff77zsg/image/upload/w_50,h_55,q_auto/f_auto/logo-removebg-preview_s7i8zr.png" class="logoHeader" alt="logo pagina">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home/user">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home/User">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">Nosotros</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="true">Sucursales</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">Sucursales</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-1">Lanus Este</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-2">Lanus Este</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/#escalada">Remedios de Escalada</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/#lanus-oeste">Lanus Oeste</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-este-1">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-este-2">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#escalada">Remedios de Escalada</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-oeste">Lanus Oeste</a></li>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link" href="/Sabores/User">Sabores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tienda/User">Tienda</a></li>
                 {{#if isAdmin}}
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/AdminPanel">ADMIN<i
-                            class="fa-solid fa-user-tie"></i></a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/AdminPanel">ADMIN<i class="fa-solid fa-user-tie"></i></a></li>
                 {{/if}}
             </ul>
-            <form class="d-flex">
-                <a href="/cart" class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span id="cartItemCount" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="/cart/User" class="btn btn-outline-dark my-2 my-sm-0">
+                <i class="fas fa-shopping-cart"></i> Cart
+                <span id="cartItemCount" class="badge bg-dark text-white ms-1 rounded-pill">{{cart.items.length}}</span>
                 </a>
             </form>
         </div>
     </div>
 </nav>
 <div class="container mt-5">
-    <div>
-        <div class="text-center text-white">
-            <img style="height: 80px;"
-                src="https://res.cloudinary.com/dbff77zsg/image/upload/logo-removebg-preview_s7i8zr.png">
-        </div>
+    <div class="text-center text-white">
+        <img style="height: 80px;" src="https://res.cloudinary.com/dbff77zsg/image/upload/logo-removebg-preview_s7i8zr.png">
     </div>
-    <h1>Administrar Usuarios </h1>
+    <h1 class="text-center">Administrar Usuarios </h1>
 
-    <!-- Botón para agregar nuevo usuario -->
-    <button id="addUserBtn" type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addUserModal">
-        Agregar Nuevo Usuario <i class="fa-solid fa-user-plus"></i>
-    </button>
+    <div class="d-flex justify-content-center mb-3">
+        <button id="addUserBtn" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            Agregar Nuevo Usuario <i class="fa-solid fa-user-plus"></i>
+        </button>
+        <button id="eliminarUsuariosBtn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            Eliminar Usuarios Inactivos <i class="fa-solid fa-trash"></i>
+        </button>
+    </div>
 
-    <!-- Botón para eliminar usuarios -->
-    <button id="eliminarUsuariosBtn" type="button" class="btn btn-danger mb-3" data-toggle="modal"
-        data-target="#addUserModal">
-        Eliminar Usuarios Inactivos <i class="fa-solid fa-trash"></i>
-    </button>
-
-    <!-- Tabla para mostrar la lista de usuarios -->
-    <table class="table" style="background-color: rgba(230, 230, 250, 0.671); border-radius: 15px;">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Correo Electrónico</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Ultima Conexión</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#if users}}
-            {{#each users}}
-            <div>
+    <div class="table-responsive" style="border-radius: 20px;">
+        <table class="table table-bordered table-striped" style="background-color: rgba(230, 230, 250, 0.671); border-radius: 15px;">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Ultima Conexión</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if users}}
+                {{#each users}}
                 <tr>
                     <th scope="row">{{this._id}}</th>
                     <td>{{this.first_name}} {{this.last_name}}</td>
@@ -83,83 +99,223 @@
                     {{else}}
                     <td style="color: green;">OnLine</td>
                     {{/if}}
-                    <td>
-                        <!-- Botón para modificar rol -->
-                        <button id="changeRoleBtn_{{this._id}}" type="button" class="btn btn-secondary btn-sm"><i
-                                class="fa-solid fa-user-pen"></i></button>
-                        <!-- Botón para eliminar usuario -->
-                        <button type="button" class="btn btn-danger btn-sm ml-2 delete-user-btn"
-                            data-user-id="{{this._id}}"><i class="fa-solid fa-trash"></i></button>
-                    </td>
+                <td>
+                    <button id="editUserBtn_{{this._id}}" type="button" class="btn btn-primary btn-sm ml-2"><i class="fa-solid fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm ml-2 delete-user-btn" data-user-id="{{this._id}}"><i class="fa-solid fa-trash"></i></button>
+                </td>
+
                 </tr>
-            </div>
-            {{/each}}
-            {{else}}
-            <tr>
-                <th scope="row">--</th>
-                <td>NO HAY USUARIOS</td>
-                <td>--</td>
-                <td>--</td>
-            </tr>
-            {{/if}}
-        </tbody>
-    </table>
+                {{/each}}
+                {{else}}
+                <tr>
+                    <th scope="row">--</th>
+                    <td colspan="5" class="text-center">NO HAY USUARIOS</td>
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Modal para agregar nuevo usuario -->
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<h1 class="text-center mt-5">Administrar Productos</h1>
+
+    <div class="d-flex justify-content-center mb-3">
+        <button id="addProductBtn" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            Agregar Nuevo Producto <i class="fa-solid fa-box-plus"></i>
+        </button>
+    </div>
+
+    <div class="table-responsive" style="border-radius: 20px; padding: 20px;">
+        <table class="table table-bordered table-striped" style="background-color: rgba(230, 230, 250, 0.671); border-radius: 15px;">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if products}}
+                {{#each products}}
+                <tr>
+                    <th scope="row">{{this._id}}</th>
+                    <td>{{this.title}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>${{this.price}}</td>
+                    <td>
+                        <button id="editProductBtn_{{this._id}}" type="button" class="btn btn-secondary btn-sm"><i class="fa-solid fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm ml-2 delete-product-btn" data-product-id="{{this._id}}"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+                {{/each}}
+                {{else}}
+                <tr>
+                    <th scope="row">--</th>
+                    <td colspan="4" class="text-center">NO HAY PRODUCTOS</td>
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addUserModalLabel">Agregar Nuevo Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Formulario para agregar nuevo usuario -->
                 <form id="registerForm" class="mx-1 mx-md-5">
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <input name="first_name" type="text" id="form1Example1c" class="form-control" />
-                            <label class="form-label" for="form3Example1c">Nombre</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">Nombre</label>
+                        <input name="first_name" type="text" id="first_name" class="form-control" />
                     </div>
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <input name="last_name" type="text" id="form3Example1c" class="form-control" />
-                            <label class="form-label" for="form3Example1c">Apellido</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Apellido</label>
+                        <input name="last_name" type="text" id="last_name" class="form-control" />
                     </div>
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <input name="email" type="email" id="form3Example3c" class="form-control" />
-                            <label class="form-label" for="form3Example3c">Email</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="email" type="email" id="email" class="form-control" />
                     </div>
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <input name="password" type="password" id="form3Example4c" class="form-control" />
-                            <label class="form-label" for="form3Example4c">Contraseña</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input name="password" type="password" id="password" class="form-control" />
                     </div>
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fa-solid fa-baby fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <input name="age" id="form3Example4cd" class="form-control" />
-                            <label class="form-label" for="form3Example4cd">Edad</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Edad</label>
+                        <input name="age" id="age" class="form-control" />
                     </div>
-                    <button style="margin: 10px;" type="submit" class="btn btn-primary">Agregar Usuario <i
-                            class="fa-solid fa-user-plus"></i></button>
+                    <button type="submit" class="btn btn-primary">Agregar Usuario <i class="fa-solid fa-user-plus"></i></button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!-- Modal para agregar productos -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Agregar Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm" class="mx-1 mx-md-5">
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">ID</label>
+                        <input name="id" type="text" id="product_id" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_title" class="form-label">Nombre</label>
+                        <input name="title" type="text" id="product_title" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_description" class="form-label">Descripción</label>
+                        <input name="description" type="text" id="product_description" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_stock" class="form-label">Stock</label>
+                        <input name="stock" type="number" id="product_stock" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_price" class="form-label">Precio</label>
+                        <input name="price" type="number" id="product_price" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_thumbnail" class="form-label">Thumbnail</label>
+                        <input name="thumbnail" type="text" id="product_thumbnail" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_category" class="form-label">Categoría</label>
+                        <input name="category" type="text" id="product_category" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar Producto <i class="fa-solid fa-box-plus"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" class="mx-1 mx-md-5">
+                    <div class="mb-3">
+                        <label for="edit_first_name" class="form-label">Nombre</label>
+                        <input name="first_name" type="text" id="edit_first_name" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_last_name" class="form-label">Apellido</label>
+                        <input name="last_name" type="text" id="edit_last_name" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_email" class="form-label">Email</label>
+                        <input name="email" type="email" id="edit_email" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_age" class="form-label">Edad</label>
+                        <input name="age" id="edit_age" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar productos -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm" class="mx-1 mx-md-5">
+                    <div class="mb-3">
+                        <label for="edit_product_name" class="form-label">Nombre</label>
+                        <input name="name" type="text" id="edit_product_name" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_description" class="form-label">Descripción</label>
+                        <input name="description" type="text" id="edit_description" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_stock" class="form-label">Stock</label>
+                        <input name="stock" type="number" id="edit_stock" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_price" class="form-label">Precio</label>
+                        <input name="price" type="number" id="edit_price" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="/js/AdminPanel.js"></script>
+<script src="/js/home.js"></script>
+<script>
+  $(document).ready(function () {
+    // Logic to update cart items count
+    var cartItemCount = {{ cart.items.length }}
+  };
+  $("#cartItemCount").text(cartItemCount);
+    );
+</script>

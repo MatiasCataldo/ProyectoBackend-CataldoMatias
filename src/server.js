@@ -10,6 +10,9 @@ import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUIExpress from "swagger-ui-express";
+import config from "./config/config.js";
+import Handlebars from "handlebars";
+
 
 //IMPORT ROUTERS
 import mockingRouter from "./routes/mocking.router.js"
@@ -19,24 +22,23 @@ import cartsRouter from "./routes/cart.router.js";
 import userRouter from "./routes/user.router.js";
 import jwtRouter from './routes/jwt.router.js';
 import emailRouter from './routes/email.router.js';
-import smsRouter from './routes/sms.router.js';
+import paymentRouter from './routes/payment.router.js';
 
 //IMPORT VIEWS
 import viewsRouter from "./routes/views.routes.js";
 
 //IMPORTS
-import __dirname, { authToken } from "./utils.js";
+import __dirname from "./utils.js";
 import { passportCall, authorization } from './utils.js';
 import initializePassport from "./config/passport.config.js";
-import config from './config/config.js';
 import { addLogger } from "./config/logger_CUSTOM.js";
 import MongoSingleton from './config/mongodb-singleton.js';
 
 // CONSTANTES DE ENTORNO
-const cookieSecret = process.env.COOKIE_SECRET;
-const mongoURL = process.env.MONGO_URL;
+const cookieSecret = config.cookieSecret;
+const mongoURL = config.urlMongo;
 const app = express();
-const SERVER_PORT = process.env.PORT || 9090;
+const SERVER_PORT = config.port || 9090;
 const httpServer = http.createServer(app);
 
 //APP SETTINGS
@@ -79,14 +81,23 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-//HANDLEBARS
-app.engine("hbs",handlebars.engine({
-  extname: "hbs",
-  defaultLayout: "main",
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  })
-);
+// Registrar helper 'eq'
+Handlebars.registerHelper('eq', function (a, b) {
+  return a === b;
+});
 
+// Registrar helper 'or'
+Handlebars.registerHelper('or', function () {
+  return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+});
+
+// HANDLEBARS
+app.engine('hbs', handlebars.engine({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+  handlebars: Handlebars
+}));
 
 // SWAGGER
 const swaggerOptions = {
@@ -110,7 +121,7 @@ app.use("/api/carts", cartsRouter);
 app.use("/api/users", userRouter);
 app.use("/api/jwt", jwtRouter);
 app.use("/api/email", emailRouter);
-app.use("/api/sms", smsRouter);
+app.use("/checkout", paymentRouter);
 app.use("/mockingproducts", mockingRouter);
 
 // ROUTER VISTAS

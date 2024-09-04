@@ -15,17 +15,28 @@ const manejadorUsuarios = new UserManager();
 router.get("/AdminPanel", 
     passportCall('jwt'), authorization(['admin']),
     async (req, res) => {
-    try {
         const cookieToken = req.cookies.jwtCookieToken;
+        let userId;
         const users = await manejadorUsuarios.getUsers(cookieToken);
+        const Products = await manejadorProductos.getProducts();
+        try {
+            const user = await UserService.getByEmail(req.user.email).select('_id').exec();
+            if (user) {
+                userId = user._id;
+            } else {
+                console.log('Usuario no encontrado');
+            }
+        } catch (err) {
+            console.error('Error al buscar usuario:', err);
+        }
+        const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
         res.render("Admin", {
+            cart: cartItems.cart,
             user: req.user,
+            products: Products,
             isAdmin: req.user.role === 'admin',
             users: users
         });
-    } catch (error) {
-        res.status(500).render('error');
-    }
 });
 
 // LOGIN
@@ -39,7 +50,7 @@ router.get("/register", (req, res) => {
 });
 
 // CART
-router.get("/cart", 
+router.get("/cart/User", 
     passportCall('jwt'),
     authorization(['user', 'admin' , 'premiun']),
     async (req, res) => {
@@ -56,7 +67,6 @@ router.get("/cart",
             console.error('Error al buscar usuario:', err);
         }
         const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
-        console.log(cartItems);
         res.render("cart", {  
             cart: cartItems.cart,
             isAdmin: req.user.role === 'admin',
@@ -65,24 +75,69 @@ router.get("/cart",
         
 });
 
-//CART NO USER
-router.get("/cart/noUser", (req, res) => {
+//CART
+router.get("/cart", (req, res) => {
     res.render("cartNoUser");
 });
 
 // SUCURSALES USER
-router.get('/sucursales',
+router.get('/sucursales/User',
     passportCall('jwt'),
-    authorization(['user', 'admin' , 'premiun']), async (req, res) => {
-    res.render('sucursales',{
-        isAdmin: req.user.role === 'admin',
-        user: req.user
-    });
+    authorization(['user', 'admin' , 'premiun']), 
+    async (req, res) => {
+        const cookieToken = req.cookies.jwtCookieToken;
+        let userId;
+        try {
+            const user = await UserService.getByEmail(req.user.email).select('_id').exec();
+            if (user) {
+                userId = user._id;
+            } else {
+                console.log('Usuario no encontrado');
+            }
+        } catch (err) {
+            console.error('Error al buscar usuario:', err);
+        }
+        const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
+        res.render('sucursales',{
+            cart: cartItems.cart,
+            isAdmin: req.user.role === 'admin',
+            user: req.user
+        });
 });
 
-// SUCURSALES NO USER
-router.get('/sucursales/NoUser', (req, res) => {
+// SUCURSALES
+router.get('/sucursales', (req, res) => {
     res.render('sucursales');
+});
+
+//SABORES USER
+router.get('/Sabores/User',
+    passportCall('jwt'),
+    authorization(['user', 'admin' , 'premiun']), 
+    async (req, res) => {
+        const cookieToken = req.cookies.jwtCookieToken;
+        let userId;
+        try {
+            const user = await UserService.getByEmail(req.user.email).select('_id').exec();
+            if (user) {
+                userId = user._id;
+            } else {
+                console.log('Usuario no encontrado');
+            }
+        } catch (err) {
+            console.error('Error al buscar usuario:', err);
+        }
+        const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
+        res.render('Sabores',{
+            cart: cartItems.cart,
+            isAdmin: req.user.role === 'admin',
+            user: req.user
+        });
+});
+
+//SABORES
+router.get('/Sabores', (req, res) => {
+    res.render('Sabores');
 });
 
 // UPDATE PASSWORD
@@ -94,11 +149,41 @@ router.get('/reset-password/:token', (req, res) => {
     res.render('updatePassword-email');
 });
 
-// HOME
-router.get('/home', async (req, res) => {
+// HOME 
+router.get('/home/User',
+    passportCall('jwt'),
+    authorization(['user', 'admin' , 'premiun']), 
+    async (req, res) => {
+        const cookieToken = req.cookies.jwtCookieToken;
+        let userId;
+        try {
+            const user = await UserService.getByEmail(req.user.email).select('_id').exec();
+            if (user) {
+                userId = user._id;
+            } else {
+                console.log('Usuario no encontrado');
+            }
+        } catch (err) {
+            console.error('Error al buscar usuario:', err);
+        }
+        const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
+        res.render('home',{
+            cart: cartItems.cart,
+            isAdmin: req.user.role === 'admin',
+            user: req.user
+        });
+});
+
+// HOME USER
+router.get('/home', (req, res) => {
+    res.render('home');
+});
+
+// TIENDA
+router.get('/tienda', async (req, res) => {
     try {
         const products = await manejadorProductos.getProducts();
-        res.render('home', {
+        res.render('tienda', {
             products: products,
             user: req.user
         });
@@ -108,14 +193,24 @@ router.get('/home', async (req, res) => {
 });
 
 
-// HOME USER
-router.get("/home/user",
+// TIENDA USER
+router.get("/tienda/User",
     passportCall('jwt'),
     authorization(['user', 'admin' , 'premiun']),
     async (req, res) => {
+        const cookieToken = req.cookies.jwtCookieToken;
+        let userId;
         try {
+            const user = await UserService.getByEmail(req.user.email).select('_id').exec();
+            if (user) {
+                userId = user._id;
+            } else {
+                console.log('Usuario no encontrado');
+            }
             const products = await manejadorProductos.getProducts();
-            res.render('home', {
+            const cartItems = await manejadorItemsCart.getCartItems(cookieToken, userId);
+            res.render('tienda', {
+                cart: cartItems.cart,
                 isAdmin: req.user.role === 'admin',
                 products: products,
                 user: req.user
@@ -125,6 +220,15 @@ router.get("/home/user",
         }
     }
 );
+
+//PAGO EXITOSO
+router.get("/successPayment", 
+    passportCall('jwt'),
+    authorization(['user', 'admin' , 'premiun']), async (req, res) => {
+        res.render("success", {
+            user: req.user
+        });
+});
 
 // REALTIMEPRODUCTS
 router.get("/realTimeProducts", 

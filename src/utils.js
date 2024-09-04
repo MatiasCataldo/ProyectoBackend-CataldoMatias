@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { faker } from '@faker-js/faker';
 import multer from 'multer';
+import config from './config/config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +17,7 @@ export const isValidPassword = (user, password) => {
 }
 
 //JSON WEB Tokens FUNCTIONS
-export const PRIVATE_KEY = "CoderhouseBackendCourseSecretKeyJWT";
+export const PRIVATE_KEY = config.privateKey;
 
 export const generateJWToken = (user) => {
     return jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '3600000' });

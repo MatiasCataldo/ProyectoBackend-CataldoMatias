@@ -112,36 +112,29 @@ export const updatePassword = async (req, res) => {
     }
 };
 
-// CAMBIAR ROL
-export const changeUserRole = async (req, res) => {
+// MODIFICAR USUARIO    
+export const updateUser = async (req, res) => {
     const { userId } = req.params;
+    const { first_name, last_name, email, age } = req.body;
     try {
         const user = await UserService.getBy(userId);
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const requiredDocuments = ['Identificación', 'Comprobante de domicilio', 'Comprobante de estado de cuenta'];
-        const userDocuments = user.documents.map(doc => doc.name);
-        const missingDocuments = requiredDocuments.filter(doc => !userDocuments.includes(doc));
-        if (missingDocuments.length > 0) {
-            return res.status(400).json({ message: `El usuario no ha terminado de procesar su documentación. ` });
-        }
+        user.first_name = first_name || user.first_name;
+        user.last_name = last_name || user.last_name;
+        user.email = email || user.email;
+        user.age = age || user.age;
 
-        if (user.role !== 'user') {
-            user.role = 'premium';
-            await user.save();
-            return res.status(201).json({ message: `Rol de usuario ${userId} actualizado a ${user.role}` });
-        } else {
-            user.role = 'user';
-            await user.save();
-            return res.status(201).json({ message: `Rol de usuario ${userId} actualizado a ${user.role}` });
-        }
+        await user.save();
+        return res.status(200).json({ message: `Información del usuario ${userId} actualizada correctamente` });
     } catch (error) {
-        console.error('Error al cambiar el rol de usuario:', error);
+        console.error('Error al actualizar la información del usuario:', error);
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 };
+
 
 
 //SUBIR ARCHIVOS

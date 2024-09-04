@@ -1,0 +1,475 @@
+{{#if user}}
+<!-- Encabezado para usuario logeado -->
+<header>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <h1 style="padding: 5px;" class="navbar-brand">Bienvenido, {{ user.name }}!</h1>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+        </div>
+        <form id="logoutForm" method="GET">
+            <button style="margin-right: 10px; background-color: darkred; border-color: darkred;" type="submit"
+                class="btn btn-primary">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
+            </button>
+        </form>
+    </nav>
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/home/User">
+            <img src="https://res.cloudinary.com/dbff77zsg/image/upload/w_50,h_55,q_auto/f_auto/logo-removebg-preview_s7i8zr.png"
+                class="logoHeader" alt="logo pagina">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home/User">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Nosotros</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="true">Sucursales</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-este-1">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-este-2">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#escalada">Remedios de Escalada</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/User/#lanus-oeste">Lanus Oeste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/Sabores/User">Sabores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tienda/User">Tienda</a></li>
+                {{#if isAdmin}}
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/AdminPanel">ADMIN<i
+                            class="fa-solid fa-user-tie"></i></a></li>
+                {{/if}}
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="/cart/User" class="btn btn-outline-dark my-2 my-sm-0">
+                <i class="fas fa-shopping-cart"></i> Cart
+                <span id="cartItemCount" class="badge bg-dark text-white ms-1 rounded-pill">{{cart.items.length}}</span>
+                </a>
+            </form>
+        </div>
+    </div>
+</nav>
+{{else}}
+<!-- Encabezado para usuario no logeado -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/home">
+            <img src="https://res.cloudinary.com/dbff77zsg/image/upload/w_50,h_55,q_auto/f_auto/logo-removebg-preview_s7i8zr.png"
+                class="logoHeader" alt="logo pagina">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">Nosotros</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Sucursales</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-1">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-2">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#escalada">Remedios de Escalada</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-oeste">Lanus Oeste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/Sabores">Sabores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tienda">Tienda</a></li>
+            </ul>
+            <form class="d-flex">
+                <a href="/cart" class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span id="cartItemCount" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </a>
+            </form>
+            <form action="/login" method="GET">
+                <button style="margin: 10px; background-color: darkred; border-color: darkred;" type="submit"
+                    class="btn btn-primary">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+{{/if}}
+<div class="container" style="background-color: white; margin-top: 10px; border-radius: 20px;">
+    <div class="d-flex align-items-center mb-3 pb-1"
+        style="display: flex; justify-content: center; align-items: center; margin: 15px;">
+        <i><img style="height: 60px; border-radius: 30px;"
+                src="https://res.cloudinary.com/dbff77zsg/image/upload/icon_nahnb4" alt="logo helanus"></i>
+        <span class="h1 fw-bold mb-0"><img style="margin: 10px;"
+                src="https://res.cloudinary.com/dbff77zsg/image/upload/logo-banner_gpoqt9" alt="logo helanus"></span>
+    </div>
+    <p style="font-family: 'Poppins'; font-size: unset; text-align: center; color: #000000ba;"
+        class="lead fw-normal text-50 mb-0">Fabrica de Helados Premium con ingredientes de calidad Gourmet.</p>
+
+    <h2 class="text-4xl lg:text-5xl font-black uppercase" style="text-align: center; padding: 10px;">Dulces de Leche
+    </h2>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/51.webp"
+                        alt=" Dulce de leche" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Dulce de Leche Clasico</h3>
+                <p class="font-light">Si estás buscando un helado que combine el dulce sabor del dulce de leche con la
+                    deliciosa textura crujiente del chocolate, entonces este es tu sabor.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/52.webp"
+                        alt="Dulce de leche granizado" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Dulce de Leche Granizado</h3>
+                <p class="font-light">Experimenta la perfecta armonía entre el dulce sabor del dulce de leche y la
+                    textura crujiente del chocolate en nuestro helado de dulce de leche granizado. Sumérgete en una
+                    explosión de sabores y texturas en cada sorbo
+                <p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/53.webp"
+                        alt="Dulce de leche con nuez" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Dulce de Leche con Nuez</h3>
+                <p class="font-light">Déjate cautivar por la combinación perfecta de nuestro cremoso dulce de leche con
+                    el irresistible sabor y la textura crujiente de las nueces. Disfruta de una experiencia única llena
+                    de sabores contrastantes en cada deliciosa cucharada</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/54.webp"
+                        alt="Dulce de leche relleno" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Dulce de Leche HELANUS</h3>
+                <p class="font-light">Helado de dulce de leche con agregado extra de dulce de leche casero.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/54.webp"
+                        alt="Dulce de leche relleno" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocotorta</h3>
+                <p class="font-light">Sumérgete en la exquisita combinación de nuestra chocotorta, donde se fusiona el
+                    delicioso sabor del chocolate con la suavidad de la crema y la textura crujiente de las galletas.
+                    Disfruta de un postre clásico reinventado en forma de helado, que te hará volver por más una y otra
+                    vez.</p>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-4xl lg:text-5xl font-black uppercase" style="text-align: center; padding: 10px;">Chocolates</h2>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/24.webp" alt="Chocolate"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate Clasico</h3>
+                <p class="font-light">Disfruta del sabor intenso y reconfortante del chocolate clásico en cada bocado de
+                    nuestro cremoso helado. Sumérgete en la indulgencia pura y deja que el rico chocolate te envuelva en
+                    una experiencia de placer.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/24.webp" alt="Chocolate"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate al Agua</h3>
+                <p class="font-light">Refrescante y delicioso, nuestro helado de chocolate al agua es perfecto para
+                    calmar tu sed y satisfacer tu antojo de chocolate. Disfruta de su textura suave y de su sabor a
+                    chocolate puro en cada sorbo.
+                <p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/55.webp"
+                        alt="Chocolate amargo" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate Amargo</h3>
+                <p class="font-light">Para los amantes del chocolate intenso, nuestro helado de chocolate amargo es una
+                    verdadera delicia. Déjate seducir por su sabor profundo y su textura sedosa que te hará querer más.
+                </p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/57.webp"
+                        alt="Chocolate blanco" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate Blanco</h3>
+                <p class="font-light">Experimenta la suavidad y la dulzura del chocolate blanco en nuestro exquisito
+                    helado. Disfruta de su cremosidad única y de su sabor delicado que te transportará a un mundo de
+                    indulgencia.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/58.webp"
+                        alt="Chocolate con almendras" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate con Almendras</h3>
+                <p class="font-light">Sumérgete en la perfecta combinación de chocolate y almendras en nuestro helado.
+                    Disfruta de la cremosidad del chocolate con el crujido de las almendras en cada bocado.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/36.webp"
+                        alt="Chocolate suizo" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate Suizo</h3>
+                <p class="font-light">Deléitate con la rica y sofisticada experiencia del chocolate suizo en forma de
+                    helado. Disfruta de su sabor indulgente y de su textura suave que te dejará sin palabras.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/43.webp"
+                        alt="Ferrero Rocher" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate Rocher</h3>
+                <p class="font-light">Déjate seducir por la indulgencia pura de nuestro helado de chocolate rocher,
+                    inspirado en el famoso dulce. Disfruta de la combinación de chocolate, avellanas y trozos crujientes
+                    en cada cucharada.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/36.webp"
+                        alt="chocolate helanus" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate HELANUS</h3>
+                <p class="font-light">Déjate seducir por la indulgencia pura de nuestro helado de chocolate rocher,
+                    inspirado en el famoso dulce. Disfruta de la combinación de chocolate, avellanas y trozos crujientes
+                    en cada cucharada.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/46.webp"
+                        alt=" Chocolate Shot" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Chocolate con Pasas al Rhum</h3>
+                <p class="font-light">Explora una explosión de sabores en nuestro helado de chocolate con pasas al rhum.
+                    Disfruta del dulce sabor del chocolate combinado con el toque picante de las pasas al rhum en cada
+                    bocado.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/60.webp"
+                        alt="Mousse de chocolate" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Mousse de Chocolate</h3>
+                <p class="font-light">Sumérgete en la suavidad y la ligereza de nuestro helado de mousse de chocolate.
+                    Disfruta de su textura aireada y de su sabor exquisito que te hará flotar en una nube de placer.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/57.webp"
+                        alt="Chocolate blanco" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Mousse de Chocolate Blanco con Cereza</h3>
+                <p class="font-light">Déjate llevar por la exquisitez del chocolate blanco en nuestro helado de mousse
+                    con cereza. Disfruta de su cremosidad suave y de su sabor delicado que te envolverá en una
+                    experiencia de placer único.</p>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-4xl lg:text-5xl font-black uppercase" style="text-align: center; padding: 10px;">Frutales</h2>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/79.webp" alt="Frutilla"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Frutilla</h3>
+                <p class="font-light">Si estás buscando un helado que combine el dulce sabor del dulce de leche con la
+                    deliciosa textura crujiente del chocolate, entonces este es tu sabor.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/81.webp" alt="Limón"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Limon</h3>
+                <p class="font-light">Experimenta la perfecta armonía entre el dulce sabor del dulce de leche y la
+                    textura crujiente del chocolate en nuestro helado de dulce de leche granizado. Sumérgete en una
+                    explosión de sabores y texturas en cada sorbo
+                <p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/79.webp" alt="Frutilla"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Frambuesa</h3>
+                <p class="font-light">Déjate cautivar por la combinación perfecta de nuestro cremoso dulce de leche con
+                    el irresistible sabor y la textura crujiente de las nueces. Disfruta de una experiencia única llena
+                    de sabores contrastantes en cada deliciosa cucharada</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/86.webp" alt="Ananá"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Anana</h3>
+                <p class="font-light">Helado de dulce de leche con agregado extra de dulce de leche casero.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img
+                        src="https://cdn.libereco.com.ar/1ca99597-0207-4730-9dc0-d20abf65104b.webp" alt="Maracuyá"
+                        width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Maracuya</h3>
+                <p class="font-light">Sumérgete en la exquisita combinación de nuestra chocotorta, donde se fusiona el
+                    delicioso sabor del chocolate con la suavidad de la crema y la textura crujiente de las galletas.
+                    Disfruta de un postre clásico reinventado en forma de helado, que te hará volver por más una y otra
+                    vez.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/54.webp"
+                        alt="Dulce de leche relleno" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Durazno</h3>
+                <p class="font-light">Sumérgete en la exquisita combinación de nuestra chocotorta, donde se fusiona el
+                    delicioso sabor del chocolate con la suavidad de la crema y la textura crujiente de las galletas.
+                    Disfruta de un postre clásico reinventado en forma de helado, que te hará volver por más una y otra
+                    vez.</p>
+            </div>
+        </div>
+        <div class="col mt-10">
+            <div class="flex flex-col gap-2 items-center text-center" style="flex-basis: 250px;">
+                <div class="relative w-[240px]"><img src="https://cdn.libereco.com.ar/sabores/54.webp"
+                        alt="Dulce de leche relleno" width="240" loading="lazy"></div>
+                <h3 class="text-2xl font-black uppercase">Naranja</h3>
+                <p class="font-light">Sumérgete en la exquisita combinación de nuestra chocotorta, donde se fusiona el
+                    delicioso sabor del chocolate con la suavidad de la crema y la textura crujiente de las galletas.
+                    Disfruta de un postre clásico reinventado en forma de helado, que te hará volver por más una y otra
+                    vez.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-white text-center text-lg-start" id="footer" style="background-color: #23242a; margin-top: 20px;">
+    <div class="container p-4">
+        <div class="row mt-4">
+            <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-4">Acerca de Nosotros</h5>
+                <p>En Helanus, nos enorgullece ofrecer una experiencia única de sabor con nuestros deliciosos
+                    helados artesanales. Cada helado es cuidadosamente elaborado con ingredientes frescos y de la
+                    más alta calidad, para brindarte un auténtico placer helado. Nuestra pasión por la excelencia y
+                    la creatividad se refleja en cada sorbo y cada cucharada. Descubre un mundo de sabores
+                    cautivadores en Helanus y déjate llevar por el auténtico arte de los helados artesanales</p>
+                <div class="mt-4">
+                    <!-- Facebook -->
+                    <a type="button" class="btn btn-floating btn-warning btn-lg"
+                        href="https://www.facebook.com/profile.php?id=100064449494181"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <!-- Dribbble -->
+                    <a type="button" class="btn btn-floating btn-warning btn-lg"
+                        href="https://www.instagram.com/_helanus/"><i class="fab fa-instagram"></i></a>
+                    <!-- Twitter -->
+                    <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-whatsapp"></i></a>
+                    <!-- Google + -->
+                    <a type="button" class="btn btn-floating btn-warning btn-lg"><i
+                            class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-4 pb-1">Busqueda:</h5>
+                <div class="form-outline form-white mb-4">
+                    <form id="searchForm" class="form-inline" action="">
+                        <input id="inputSearch" class="form-control mr-sm-2" type="text" placeholder="Buscar🔎">
+                    </form>
+                    <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;">
+                        </div>
+                        <div class="form-notch-middle" style="width: 48.8px; padding-bottom: 10px;"></div>
+                        <div class="form-notch-trailing"></div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52477.55091401215!2d-58.440362878320286!3d-34.709040499999986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a3334895a4969f%3A0xe057700be49d351b!2sHELANUS%20S.A!5e0!3m2!1ses-419!2sar!4v1698412417527!5m2!1ses-419!2sar"
+                            width="350" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <ul class="fa-ul" style="margin-left: 1.65em;">
+                    <li class="mb-3">
+                        <span class="fa-li"><i class="fas fa-home"></i></span><span class="ms-2">Buenos Aires,
+                            Lanus, ARG</span>
+                    </li>
+                    <li class="mb-3">
+                        <span class="fa-li"><i class="fas fa-envelope"></i></span><span
+                            class="ms-2">helanus_heladeria@example.com</span>
+                    </li>
+                    <li class="mb-3">
+                        <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">011
+                            5027-0500</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-4">HORARIOS:</h5>
+                <table class="table text-center text-white">
+                    <tbody class="font-weight-normal">
+                        <tr>
+                            <td>Lunes</td>
+                            <td>9hs - 22hs</td>
+                        </tr>
+                        <tr>
+                            <td>Martes</td>
+                            <td>9hs - 24hs</td>
+                        </tr>
+                        <tr>
+                            <td>Miercoles</td>
+                            <td>9hs - 24hs</td>
+                        </tr>
+                        <tr>
+                            <td>Jueves</td>
+                            <td>9hs - 24hs</td>
+                        </tr>
+                        <tr>
+                            <td>Viernes</td>
+                            <td>9hs - 24hs</td>
+                        </tr>
+                        <tr>
+                            <td>Sabado</td>
+                            <td>9hs - 24hs</td>
+                        </tr>
+                        <tr>
+                            <td>Domingos</td>
+                            <td>9hs - 23hs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2023 Copyright ~ Helanus®</div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="/js/home.js"></script>
+<script>
+  $(document).ready(function () {
+    // Logic to update cart items count
+    var cartItemCount = {{ cart.items.length }}
+  };
+  $("#cartItemCount").text(cartItemCount);
+
+    });
+</script>

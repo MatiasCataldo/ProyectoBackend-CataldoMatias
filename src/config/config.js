@@ -20,8 +20,10 @@ dotenv.config({
 
 export default {
     port: process.env.PORT,
+    domain: process.env.DOMAIN,
     urlMongo: process.env.MONGO_URL,
     cookieSecret: process.env.COOKIE_SECRET,
+    privateKey: process.env.PRIVATE_KEY,
     persistence: program.opts().persist,
     adminName: process.env.ADMIN_NAME,
     adminPassword: process.env.ADMIN_PASSWORD,
@@ -30,5 +32,6 @@ export default {
     twilioAccountSID: process.env.TWILIO_ACCOUNT_SID,
     twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
     twilioSmsNumber: process.env.TWILIO_SMS_NUMBER,
-    twilioToSmsNumber: process.env.TWILIO_TO_SMS_NUMBER
+    twilioToSmsNumber: process.env.TWILIO_TO_SMS_NUMBER,
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY
 }

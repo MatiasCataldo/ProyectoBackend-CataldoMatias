@@ -1,17 +1,17 @@
 import nodemailer from 'nodemailer';
-import config from '../config/config.js';
 import __dirname from '../utils.js';
 import { generateUniqueCode } from "../utils.js";
 import userModel from '../dao/models/user.model.js';
 import bcrypt from "bcrypt";
+import config from '../config/config.js';
 
 // configuracion de transport
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 465,
     auth: {
-        user: process.env.GMAIL_ACCOUNT,
-        pass: process.env.GMAIL_APP_PASSWD
+        user: config.gmailAccount,
+        pass: config.gmailAppPassword
     }
 })
 
@@ -25,7 +25,7 @@ transporter.verify(function (error, success) {
 })
 
 const mailOptions = {
-    from: "Helanus - " + process.env.GMAIL_ACCOUNT,
+    from: "Helanus " + config.gmailAccount,
     to: 'matiascataldo923@gmail.com',
     subject: "Correo de HELANUS!",
     html: `<div><h1> Esto es un test de correo con NodeMailer </h1></div>`,
@@ -33,8 +33,8 @@ const mailOptions = {
 }
 
 const mailOptionsWithAttachments = {
-    from: "Helanus - " + process.env.GMAIL_ACCOUNT,
-    to: `${process.env.GMAIL_ACCOUNT}`,
+    from: "Helanus " + config.gmailAccount,
+    to: `${config.gmailAccount}`,
     subject: "Correo de HELANUS!",
     html: `<div>
                 <h1>Esto es un Test de envio de correos con Nodemailer!</h1>
@@ -103,15 +103,14 @@ export const sendEmailWithAttachments = (req, res) => {
         })
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + process.env.GMAIL_ACCOUNT });
+        res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + config.gmailAccount });
     }
 }
 
 const tempDbMails = {}
 
 const mailOptionsToReset = {
-    from: process.env.GMAIL_ACCOUNT,
-    //to: config.gmailAccount,
+    from: config.gmailAccount,
     subject: "Reset password",
 }
 
@@ -141,7 +140,7 @@ export const sendEmailToResetPassword = (req, res) => {
         })
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + process.env.GMAIL_ACCOUNT });
+        res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + config.gmailAccount });
     }
 }
 
@@ -181,7 +180,7 @@ export const resetPassword = async (req, res) => {
 
 export const sendInactiveAccountEmail = (email) => {
     const mailOptions = {
-        from: "Helanus - " + process.env.GMAIL_ACCOUNT,
+        from: "Helanus " + config.gmailAccount,
         to: email,
         subject: "Cuenta eliminada por inactividad",
         html: `<div><h1>Su cuenta ha sido eliminada por inactividad</h1>
@@ -200,7 +199,7 @@ export const sendInactiveAccountEmail = (email) => {
 export const sendProductDeletedEmail = async (email, productName) => {
     try {
         const mailOptions = {
-            from: "Helanus - " + process.env.GMAIL_ACCOUNT,
+            from: "Helanus " + config.gmailAccount,
             to: email,
             subject: "Producto eliminado",
             html: `<div><h1>Producto Eliminado</h1>
@@ -216,7 +215,7 @@ export const sendProductDeletedEmail = async (email, productName) => {
 
 export function enviarCorreoBienvenida(usuario) {
     const mailOptions = {
-        from: "Helanus - " + process.env.GMAIL_ACCOUNT,
+        from: "Helanus " + config.gmailAccount,
         to: usuario.email,
         subject: 'Bienvenido a Helanus',
         text: `Hola ${usuario.first_name} ${usuario.last_name},\n\n¡Bienvenido a Helanus! Gracias por registrarte en nuestra plataforma.\n\nEsperamos que disfrutes de nuestros servicios.\n\nSaludos,\nEl equipo de Helanus`

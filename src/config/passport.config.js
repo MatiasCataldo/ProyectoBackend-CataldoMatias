@@ -7,16 +7,16 @@ import googleStrategy from "passport-google-oauth20"
 import { PRIVATE_KEY, createHash } from '../utils.js';
 import { enviarCorreoBienvenida } from '../controllers/email.controller.js'
 import { addLogger } from "./logger_CUSTOM.js";
-import config from './config.js';
 import { CartService, UserService } from '../services/service.js';
 import cartModel from '../dao/models/cart.model.js';
+import config from './config.js';
 
 const GoogleStrategy = googleStrategy.Strategy;
 const localStrategy = passportLocal.Strategy;
 const JwtStrategy = jwtStrategy.Strategy;
 const ExtractJWT = jwtStrategy.ExtractJwt;
 const logger = addLogger;
-const cookieSecret = process.env.COOKIE_SECRET;
+const cookieSecret = config.cookieSecret;
 
 
 

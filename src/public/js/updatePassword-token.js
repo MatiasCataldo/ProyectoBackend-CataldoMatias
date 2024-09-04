@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const token = window.location.pathname.split('/').pop();
-            const response = await fetch(`https://proyectobackend-cataldomatias-production.up.railway.app/api/email/reset-password/${token}`, {
+            const response = await fetch(`http://localhost:8080/api/email/reset-password/${token}`, {
                 method: 'POST',
                 body: JSON.stringify({ newPassword }),
                 headers: {

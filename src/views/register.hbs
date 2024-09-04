@@ -16,20 +16,15 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">Sucursales</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/sucursales/NoUser/#lanus-este-1">Lanus Este</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/NoUser/#lanus-este-2">Lanus Este</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/NoUser/#escalada">Remedios de Escalada</a></li>
-                        <li><a class="dropdown-item" href="/sucursales/NoUser/#lanus-oeste">Lanus Oeste</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-1">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-este-2">Lanus Este</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#escalada">Remedios de Escalada</a></li>
+                        <li><a class="dropdown-item" href="/sucursales/#lanus-oeste">Lanus Oeste</a></li>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link" href="/Sabores">Sabores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tienda">Tienda</a></li>
             </ul>
-            <form class="d-flex">
-                <a href="/cart/noUser" class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span id="cartItemCount" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </a>
-            </form>
             <form action="/login" method="GET">
                 <button style="margin: 10px; background-color: darkred; border-color: darkred;" type="submit"
                     class="btn btn-primary">
@@ -88,10 +83,8 @@
                                         </div>
                                     </div>
                                     <div class="form-check d-flex justify-content-center mb-5">
-                                        <input class="form-check-input me-2" type="checkbox" value=""
-                                            id="form2Example3c" />
                                         <label class="form-check-label" for="form2Example3">
-                                            Estoy de acuerdo con todos los <a href="#!">Terminos de servicio</a>
+                                            Estoy de acuerdo con todos los <a href="#!">Terminos de servicio</a><input style="margin: 5px;" type="checkbox" value="" id="form2Example3c">
                                             <p style="margin: 15px;">¿Ya tienes una cuenta? <a href="/login">Ingresa
                                                     aquí</a></p>
                                         </label>
@@ -210,3 +203,4 @@
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2023 Copyright ~ Helanus®</div>
 </footer>
 <script src="/js/register.js"></script>
+<script src="/js/home.js"></script>
