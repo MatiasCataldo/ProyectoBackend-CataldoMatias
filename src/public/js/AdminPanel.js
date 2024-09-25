@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const obj = {};
         formData.forEach((value, key) => obj[key] = value);
         try {
-            const response = await fetch('http://localhost:8080/api/jwt/register', {
+            const response = await fetch('/api/jwt/register', {
                 method: 'POST',
                 body: JSON.stringify(obj),
                 headers: {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const eliminarUsuariosBtn = document.getElementById('eliminarUsuariosBtn');
     eliminarUsuariosBtn.addEventListener('click', async function () {
         try {
-            const response = await fetch('http://localhost:8080/api/users', {
+            const response = await fetch('/api/users', {
                 method: 'DELETE'
             });
 
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', async function () {
             const userId = this.id.split('_')[1];
             try {
-                const response = await fetch(`http://localhost:8080/api/users/${userId}`);
+                const response = await fetch(`/api/users/${userId}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener los datos del usuario');
                 }
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const updatedUser = Object.fromEntries(formData.entries());
 
                     try {
-                        const updateResponse = await fetch(`http://localhost:8080/api/users/UpDateUser/${userId}`, {
+                        const updateResponse = await fetch(`/api/users/UpDateUser/${userId}`, {
                             method: 'PUT',
                             body: JSON.stringify(updatedUser),
                             headers: {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const userId = button.getAttribute('data-user-id');
 
             try {
-                const response = await fetch(`http://localhost:8080/api/users/${userId}/deleteUser`, {
+                const response = await fetch(`/api/users/${userId}/deleteUser`, {
                     method: 'DELETE'
                 });
 
