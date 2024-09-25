@@ -1,7 +1,7 @@
 //OBTENER USUARIO POR EMAIL
 async function getUserIdFromEmail(email) {
     try {
-        const response = await fetch(`http://localhost:8080/api/users/email/${encodeURIComponent(email)}`, {
+        const response = await fetch(`/api/users/email/${encodeURIComponent(email)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function getTokenFromCookie() {
 //OBTENER ID DEL CARRITO
 async function getCartId(userId, token) {
     try {
-        const response = await fetch(`http://localhost:8080/api/carts/${userId}/cartId`, {
+        const response = await fetch(`/api/carts/${userId}/cartId`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userId = await getUserIdFromEmail(userEmail);
         const userIdString = userId.toString();
         const cartId = await getCartId(userId, token);
-        const response = await fetch(`http://localhost:8080/api/carts/${userIdString}/${cartId}/purchase`, {
+        const response = await fetch(`/api/carts/${userIdString}/${cartId}/purchase`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
